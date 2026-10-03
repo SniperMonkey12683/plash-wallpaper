@@ -1,34 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plash YouTube Wallpaper</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #000;
-    }
-
-    iframe {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      border: 0;
-      pointer-events: none;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plash Wallpaper</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
+#player{position:fixed;inset:0;width:100vw;height:100vh;border:0;pointer-events:none}
+#player iframe{width:100vw!important;height:100vh!important}
+</style>
 </head>
 <body>
-  <iframe
-    src="https://www.youtube.com/embed/Arkzup4UM_o?autoplay=1&mute=1&loop=1&playlist=Arkzup4UM_o&controls=0&rel=0&modestbranding=1&playsinline=1"
-    allow="autoplay; fullscreen"
-    allowfullscreen>
-  </iframe>
+<div id="player"></div>
+<script>
+const VIDEO_ID="Arkzup4UM_o";
+let player;
+const tag=document.createElement("script");
+tag.src="https://www.youtube.com/iframe_api";
+document.head.appendChild(tag);
+
+function onYouTubeIframeAPIReady(){
+  player=new YT.Player("player",{
+    videoId:VIDEO_ID,
+    playerVars:{
+      autoplay:1,controls:0,disablekb:1,fs:0,iv_load_policy:3,
+      modestbranding:1,playsinline:1,rel:0
+    },
+    events:{
+      onReady:e=>{
+        e.target.mute();
+        e.target.playVideo();
+        watchForEnd();
+      }
+    }
+  });
+}
+
+function watchForEnd(){
+  setInterval(()=>{
+    if(!player || typeof player.getPlayerState!=="function") return;
+    const duration=player.getDuration();
+    const current=player.getCurrentTime();
+    if(duration>1 && current>0 && duration-current<0.20){
+      player.seekTo(0,true);
+      player.playVideo();
+    }
+  },50);
+}
+</script>
 </body>
 </html>
