@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,19 +22,21 @@
             width: 100vw;
             height: 100vh;
             object-fit: cover;
+            display: block;
         }
     </style>
 </head>
 
 <body>
     <video id="wallpaper" autoplay muted loop playsinline preload="auto">
-        <source src="video.mp4" type="video/mp4">
+        <source src="plash-video.mp4" type="video/mp4">
     </video>
 
     <script>
         const video = document.getElementById("wallpaper");
 
         video.muted = true;
+
         video.play().catch(() => {
             document.addEventListener("click", () => {
                 video.play();
@@ -42,3 +45,4 @@
     </script>
 </body>
 </html>
+```
