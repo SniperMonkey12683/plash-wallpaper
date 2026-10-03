@@ -3,7 +3,6 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         html, body {
@@ -16,11 +15,8 @@
         }
 
         video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             display: block;
         }
@@ -28,21 +24,9 @@
 </head>
 
 <body>
-    <video id="wallpaper" autoplay muted loop playsinline preload="auto">
+    <video autoplay muted loop playsinline>
         <source src="plash-video (2).mp4" type="video/mp4">
     </video>
-
-    <script>
-        const video = document.getElementById("wallpaper");
-
-        video.muted = true;
-
-        video.play().catch(() => {
-            document.addEventListener("click", () => {
-                video.play();
-            }, { once: true });
-        });
-    </script>
 </body>
 </html>
 ```
