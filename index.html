@@ -15,17 +15,30 @@
         }
 
         video {
-            width: 100%;
-            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             object-fit: cover;
-            display: block;
         }
     </style>
 </head>
 
 <body>
-    <video autoplay muted loop playsinline>
+    <video id="wallpaper" autoplay muted loop playsinline preload="auto">
         <source src="video.mp4" type="video/mp4">
     </video>
+
+    <script>
+        const video = document.getElementById("wallpaper");
+
+        video.muted = true;
+        video.play().catch(() => {
+            document.addEventListener("click", () => {
+                video.play();
+            }, { once: true });
+        });
+    </script>
 </body>
 </html>
